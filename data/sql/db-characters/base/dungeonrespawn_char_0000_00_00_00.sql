@@ -1,4 +1,4 @@
-CREATE TABLE IF NOT EXISTS `dungeonrespawn_playerinfo` (
+CREATE TABLE IF NOT EXISTS `mod_dungeonrespawn_playerinfo` (
   `guid` bigint(20) unsigned DEFAULT NULL,
   `map` int(11) DEFAULT NULL,
   `x` float DEFAULT NULL,

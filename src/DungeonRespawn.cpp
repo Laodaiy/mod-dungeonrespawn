@@ -122,7 +122,7 @@ void DSWorldScript::OnAfterConfigLoad(bool reload)
     drEnabled = sConfigMgr->GetOption<bool>("DungeonRespawn.Enable", false);
     respawnHpPct = sConfigMgr->GetOption<float>("DungeonRespawn.RespawnHealthPct", 50.0f);
 
-    QueryResult qResult = CharacterDatabase.Query("SELECT `guid`, `map`, `x`, `y`, `z`, `o` FROM `dungeonrespawn_playerinfo`");
+    QueryResult qResult = CharacterDatabase.Query("SELECT `guid`, `map`, `x`, `y`, `z`, `o` FROM `mod_dungeonrespawn_playerinfo`");
 
     if (qResult)
     {
@@ -149,11 +149,11 @@ void DSWorldScript::OnAfterConfigLoad(bool reload)
             dataCount++;
         } while (qResult->NextRow());
 
-        LOG_INFO("module", "Loaded '{}' rows from 'dungeonrespawn_playerinfo' table.", dataCount);
+        LOG_INFO("module", "Loaded '{}' rows from 'mod_dungeonrespawn_playerinfo' table.", dataCount);
     }
     else
     {
-        LOG_INFO("module", "Loaded '0' rows from 'dungeonrespawn_playerinfo' table.");
+        LOG_INFO("module", "Loaded '0' rows from 'mod_dungeonrespawn_playerinfo' table.");
         return;
     }
 }
@@ -169,7 +169,7 @@ void DSWorldScript::SaveRespawnData()
     {
         if (prData.inDungeon)
         {
-            CharacterDatabase.Execute("INSERT INTO `dungeonrespawn_playerinfo` (guid, map, x, y, z, o) VALUES ({}, {}, {}, {}, {}, {}) ON DUPLICATE KEY UPDATE map={}, x={}, y={}, z={}, o={}",
+            CharacterDatabase.Execute("INSERT INTO `mod_dungeonrespawn_playerinfo` (guid, map, x, y, z, o) VALUES ({}, {}, {}, {}, {}, {}) ON DUPLICATE KEY UPDATE map={}, x={}, y={}, z={}, o={}",
                 prData.guid.GetRawValue(),
                 prData.dungeon.map,
                 prData.dungeon.x,
@@ -184,7 +184,7 @@ void DSWorldScript::SaveRespawnData()
         }
         else
         {
-            CharacterDatabase.Execute("DELETE FROM `dungeonrespawn_playerinfo` WHERE guid = {}", prData.guid.GetRawValue());
+            CharacterDatabase.Execute("DELETE FROM `mod_dungeonrespawn_playerinfo` WHERE guid = {}", prData.guid.GetRawValue());
         }
     }
 }
